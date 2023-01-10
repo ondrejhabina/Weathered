@@ -1,23 +1,38 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import { Inter } from '@next/font/google'
-import { useRef } from 'react';
-import React from 'react';
+import React from 'react'
+import { useState } from 'react'
+
 
 const inter = Inter({ subsets: ['latin'] })
 
 
-function handleSubmit() {
-  let submittedTodo = '';
-  if (submittedTodo === '') {
-    return
-  }
-}
-
 export default function Home() {
+
+  const [input, setInput] = React.useState('')
+
+  function getCurrentInput(value) {
+    const inputValue = value.target.value;
+    setInput(inputValue)
+  }
+
+  
+  function handleSubmit() {
+    let submittedCity = input
+    console.log(submittedCity);
+  }
+
+  function handleEnterSubmit (event) {
+    if(event.key === 'Enter') {
+      handleSubmit()
+    }
+  }
+
   return (
     <main>
-      <input type={'text'}></input>
+      <input type={'text'} onChange={getCurrentInput} onKeyDown={(e) => handleEnterSubmit(e)}></input>
+      <button onClick={handleSubmit}></button>
       <div>Hello</div>
     </main>
   )
