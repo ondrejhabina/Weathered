@@ -32,18 +32,57 @@ export default function Home() {
 
 
   function TemporalData(timeData) {
+
+    const [displayTime, setDisplayTime] = React.useState(true) //state to manage whether time will be displayed or not
+
     function getCurrentTime() {
       const today = new Date()
-      const date = ''
+      const dateMonth = today.getMonth() + 1
+      const dateDay = today.getDate()
       const hours = today.getHours()
       const minutes = today.getMinutes()
+
+      const allTemporalData = {
+        date: {
+          day: dateDay,
+          month: dateMonth
+        },
+        hours: hours,
+        minutes: minutes
+      }
+      return allTemporalData
+    
     }
-    const time: string = getCurrentTime() //To be created
-    const date: string = '';
-    //need more time to come up with a solution for time that includes time being displayed immediately but also reusability of TemporalData component for the following days
+
+    //Following code checks whether a date element exists on timeData - distinguishing between current and following days
+    let displayedTimeData = {}
+    if (timeData.date === false) {
+      const generatedTemporalData = getCurrentTime()
+      displayedTimeData = generatedTemporalData
+    } else {
+      const receivedTemporalData = timeData.date
+      displayedTimeData = receivedTemporalData
+      setDisplayTime(false)
+    }
+
 
     return(
-      <></>
+      <div>
+      </div>
+    )
+  }
+
+  //Displaying city and country 
+  //city will be imported from input element state at the moment of searching
+
+  function GeographicalData(inputCity) { 
+
+    const country = ''
+    return(
+      <div>
+        <p>{`${inputCity},`}</p>
+        <p>{country}</p>
+      </div>
     )
   }
 
