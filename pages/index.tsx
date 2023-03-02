@@ -37,6 +37,7 @@ export default function Home() {
 
     function getCurrentTime() {
       const today = new Date()
+      const dateYear = today.getFullYear()
       const dateMonth = today.getMonth() + 1
       const dateDay = today.getDate()
       const hours = today.getHours()
@@ -45,7 +46,8 @@ export default function Home() {
       const allTemporalData = {
         date: {
           day: dateDay,
-          month: dateMonth
+          month: dateMonth,
+          year: dateYear
         },
         hours: hours,
         minutes: minutes
@@ -55,21 +57,24 @@ export default function Home() {
     }
 
     //Following code checks whether a date element exists on timeData - distinguishing between current and following days
-    let displayedTimeData = {}
+    let displayedTimeData:object = {}
     if (timeData.date === false) {
       const generatedTemporalData = getCurrentTime()
       displayedTimeData = generatedTemporalData
+      return(
+        <section>
+          <p>{displayedTimeData.day}.{displayedTimeData.month}.{displayedTimeData.year}|</p><p>{displayedTimeData.hours}:{displayedTimeData.minutes}</p>
+        </section>
+      )
     } else {
       const receivedTemporalData = timeData.date
-      displayedTimeData = receivedTemporalData
       setDisplayTime(false)
+      return(
+        <section>
+          <p>{receivedTemporalData}</p>
+        </section>
+      )
     }
-
-
-    return(
-      <div>
-      </div>
-    )
   }
 
   //Displaying city and country 
@@ -77,11 +82,12 @@ export default function Home() {
 
   function GeographicalData(inputCity) { 
 
-    const country = ''
+    const inputCityCapitlaised = ''
+
+
     return(
       <div>
-        <p>{`${inputCity},`}</p>
-        <p>{country}</p>
+        <p>{inputCityCapitlaised}</p>
       </div>
     )
   }
@@ -104,7 +110,7 @@ export default function Home() {
     <main>
       <input type={'text'} onChange={getCurrentInput} onKeyDown={(e) => handleEnterSubmit(e)}></input>
       <button onClick={handleSubmit}>Search</button>
-      <div>Hello</div>
+      
     </main>
   )
 }
